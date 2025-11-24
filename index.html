@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Balada de Valeria</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* === VARIABLES DE COLOR === */
+        :root {
+            --scarlet-red: #8B0000;
+            --dark-scarlet: #5A0000;
+            --black: #0D0D0D;
+            --dark-gray: #333333;
+            --light-gray: #CCCCCC;
+        }
+
+        /* === ESTILOS BASE Y FONDOS DINÁMICOS === */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Cinzel', serif;
+            color: var(--light-gray);
+            background-color: var(--black);
+            line-height: 1.6;
+            transition: background-image 1.5s ease-in-out; 
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        /* FONDOS: IMÁGENES DE EJEMPLO DE ESTILO MEDIEVAL LIGHT FANTASY */
+        .background-initial {
+            background-image: url('https://images.steamusercontent.com/ugc/2053124032974362510/68A69A675BD662F477EB824B39031A8A4E06CC89/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false'); /* Reemplaza con tu imagen estática */
+        }
+        .background-gif {
+            background-image: url('https://www.dropbox.com/scl/fi/evmwytz27oytlplb3cqro/ym2s3es52hce1.gif?rlkey=q2i3e0etrmtlw8m2qlnhuu2hg&st=an9kwug9&raw=1'); /* Reemplaza con tu GIF */
+        }
+
+        /* === CONTENEDOR PRINCIPAL === */
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+            opacity: 0; 
+            transition: opacity 1s ease-in;
+            background-color: rgba(13, 13, 13, 0.85);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            min-height: 200vh;
+        }
+        
+        /* --- Estilo de la Pantalla de Inicio (Overlay) --- */
+        #start-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(13, 13, 13, 0.95);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 1s ease-out;
+        }
+        
+        #start-button {
+            background-color: var(--scarlet-red);
+            color: var(--light-gray);
+            border: 2px solid var(--light-gray);
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        
+        #start-button:hover {
+            background-color: var(--dark-scarlet);
+            transform: scale(1.05);
+        }
+        
+        /* === ESTILOS DEL CONTENIDO === */
+        h1 {
+            color: var(--scarlet-red);
+            font-weight: 700;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px var(--black);
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            color: var(--light-gray);
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+
+        /* CLASE DE ANIMACIÓN DE ZOOM Y ELEGANCIA */
+        .scroll-item {
+            opacity: 0;
+            transform: scale(0.95); /* Empieza un poco encogido (efecto zoom out inicial) */
+            transition: opacity 1.2s ease-out, transform 1.2s ease-out; /* Transición larga para suavidad */
+            margin: 20px 0;
+        }
+        
+        .scroll-item.show {
+            opacity: 1;
+            transform: scale(1); /* Crece a su tamaño normal (efecto zoom in) */
+        }
+        
+        /* IMAGENES y VIDEO */
+        .image-wrapper {
+            margin: 30px 0;
+        }
+        
+        .image-wrapper img, .image-wrapper video {
+            width: 100%;
+            height: auto;
+            border: 4px solid var(--scarlet-red);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            object-fit: cover; 
+            max-height: 500px;
+        }
+
+        /* ESTILO DEL MENSAJE FINAL (Destacado) */
+        .mensaje {
+            background-color: var(--dark-gray);
+            border: 3px solid var(--scarlet-red);
+            padding: 30px;
+            margin-top: 50px;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            color: var(--light-gray);
+            text-align: center;
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
+        }
+        
+        .mensaje strong {
+            color: var(--scarlet-red);
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body class="background-initial"> 
+   
+
+    <audio id="background-music" src="https://www.dropbox.com/scl/fi/dsg3cp1k4a63r8cw3labn/Lana-Del-Rey-Video-Games.mp3?rlkey=tgwoi58up6xpgee86q7ibu3e2&st=75uikn8t&raw=1" loop preload="auto"></audio>
+
+    <div id="start-screen">
+        <h1 style="color:var(--scarlet-red); margin-bottom:20px;">Una Balada para Valeria</h1>
+        <p style="color:var(--light-gray); font-size: 1.2rem;">Presiona para iniciar la melodía...</p>
+        <button id="start-button">Ver la carta</button>
+    </div>
+
+    <div class="container" id="main-content">
+        <h1 class="scroll-item">La Balada de Valeria</h1>
+        <h2 class="scroll-item">"Hasta mi último suspiro"</h2>
+
+        <div class="image-wrapper scroll-item" id="scroll-target-1"> 
+            <img src="https://www.dropbox.com/scl/fi/zz66facvjg4z99g8ch33w/Captura-de-pantalla-2025-11-24-074923.png?rlkey=a353ie6da0fcysxg1du9t80pq&st=8oa5jfm2&raw=1" alt="Imagen 1"> 
+            <p class="scroll-item" style="font-style: italic; color: var(--light-gray); margin-top: 10px;">Un recuerdo de nuestro tiempo.</p>
+        </div>
+
+        <div class="scroll-item" style="padding: 20px; color: var(--light-gray);">
+            <p>En el silencio de la noche, las estrellas nos recuerdan los juramentos que hicimos.</p>
+        </div>
+
+        <div class="image-wrapper scroll-item"> 
+            <img src="https://www.dropbox.com/scl/fi/ssu2ug55xtwem11g713zj/vl.gif?rlkey=dnoylhgnqx2bijs74onm5hrof&st=hevlyyo5&raw=1" controls autoplay muted></video>
+            <p class="scroll-item" style="font-style: italic; color: var(--light-gray); margin-top: 10px;">Tu voz, mi melodía favorita.</p>
+        </div>
+
+        <div class="scroll-item" style="padding: 20px; color: var(--light-gray);">
+            <p>Aunque los caminos se separen, la luz de la memoria arde en el corazón.</p>
+        </div>
+        
+        <div class="mensaje2 scroll-item" id="scroll-target-2">
+            <p><strong>TE AMO AÚN.</strong></p>
+            <p>¿Cómo se olvida lo inolvidable? Esos ojos, esa sonrisa, esa forma en la que me miraba, pero sobre todo esa manera de hacerme sentir.</p>
+            <p style="color: var(--scarlet-red); font-weight: bold; font-size: 1.1em;">Mi mente dirá que no, pero mi corazón siempre sabrá la verdad, que la amaré hasta mi último suspiro.</p>
+            <p style="margin-top: 20px; border-top: 1px solid var(--scarlet-red); padding-top: 10px;">Yo se que no fui un buen novio con esto te quiero agradecer todo lo que hiciste por mi y me diste, me quiero despedir como debi.</p>
+            <p><strong>¿Recuerdas esa cancion que me dedicaste?.</strong></p>
+             <p style="color: var(--scarlet-red); font-weight: bold; font-size: 1.1em; margin-top: 20px; border-top: 1px solid var(--scarlet-red); padding-top: 10px;">Lo siento por haberte lastimado al decirte que no podria cumplir mi promesa, pero aquella Valeria de la que me enamore ya no esta y la que esta ahorita ya no es mi princesa que amaba, ahora es una mujer que cualquiera puede conseguir con todo respeto.</p>
+        </div>
+
+        <div class="mensaje scroll-item" id="scroll-target-3">
+         <p><strong>TAL VEZ EN OTRA VIDA.</strong></p>
+         <p>Cuidate Valeria, se que lograras lo que quieras en tu vida y seras mucho más feliz sin mi. Mientras tanto seguire con mi vida sin volver a tener una relacion, Adios.</p>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const startButton = document.getElementById('start-button');
+            const startScreen = document.getElementById('start-screen');
+            const mainContent = document.getElementById('main-content');
+            const audio = document.getElementById('background-music');
+            const body = document.body;
+            
+            // Punto de referencia para el cambio de fondo: El final de la primera imagen.
+            const changeTarget = document.getElementById('scroll-target-1'); 
+            
+            // --- Lógica de Inicio ---
+            startButton.addEventListener('click', () => {
+                audio.play().catch(error => {
+                    console.error("Fallo al intentar auto-play:", error);
+                });
+                
+                startScreen.style.opacity = '0';
+                setTimeout(() => {
+                    startScreen.style.display = 'none';
+                    body.classList.add('background-initial');
+                    mainContent.style.opacity = '1';
+                    initScrollEffects();
+                }, 1000); 
+            });
+
+
+            // --- Lógica de Animación y Cambio de Fondo por Scroll ---
+            function initScrollEffects() {
+                // 1. Selector de elementos a animar
+                const elementsToAnimate = document.querySelectorAll('.scroll-item');
+                
+                // 2. Observer para animar la entrada de CADA elemento
+                const animObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('show');
+                            // Para que la animación corra solo una vez:
+                            observer.unobserve(entry.target); 
+                        }
+                    });
+                }, {
+                    root: null,
+                    rootMargin: '0px',
+                    // Aparece cuando el 10% del elemento es visible
+                    threshold: 0.1 
+                });
+
+                elementsToAnimate.forEach(element => {
+                    animObserver.observe(element);
+                });
+
+                // 3. Lógica para cambiar el fondo (Imagen estática -> GIF)
+                window.addEventListener('scroll', function() {
+                    if (changeTarget) {
+                        const targetRect = changeTarget.getBoundingClientRect();
+                        
+                        // Si la primera imagen ha salido de la vista (la parte de abajo es menor a 0)
+                        if (targetRect.bottom < 0) {
+                            body.classList.remove('background-initial');
+                            body.classList.add('background-gif');
+                        } else {
+                            // Si la primera imagen sigue visible o volvemos hacia arriba
+                            body.classList.remove('background-gif');
+                            body.classList.add('background-initial');
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
